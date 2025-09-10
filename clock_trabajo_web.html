@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock de Trabajo - By Andrew Valdelamar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        h1 {
+            background: #007bff;
+            color: white;
+            padding: 15px 0;
+            margin: 0;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .log {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .log-entry {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clock de Trabajo - By Andrew Valdelamar</h1>
+    <div class="container">
+        <button onclick="startWork()">Iniciar Trabajo</button>
+        <button onclick="endWork()">Finalizar Trabajo</button>
+        <div class="log" id="log"></div>
+    </div>
+    <script>
+        let startTime;
+        function startWork() {
+            startTime = new Date();
+            addLog("Trabajo iniciado a las " + startTime.toLocaleTimeString());
+        }
+        function endWork() {
+            if (!startTime) {
+                alert("Primero debes iniciar el trabajo");
+                return;
+            }
+            let endTime = new Date();
+            let hours = ((endTime - startTime) / 1000 / 3600).toFixed(2);
+            addLog("Trabajo finalizado a las " + endTime.toLocaleTimeString() + ". Total: " + hours + " horas");
+            startTime = null;
+        }
+        function addLog(message) {
+            let logDiv = document.getElementById("log");
+            let entry = document.createElement("div");
+            entry.className = "log-entry";
+            entry.innerText = message;
+            logDiv.prepend(entry);
+        }
+    </script>
+</body>
+</html>
